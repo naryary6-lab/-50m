@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ហាងអាហារយើង - កុម្មង់ម្ហូប</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 15px; background-color: #f5f5f5; margin: 0; }
+    h2 { text-align: center; color: #333; }
+    .card { background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .btn { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+    .form-group { margin-top: 15px; }
+    input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+    .submit-btn { width: 100%; background: #0088cc; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>🍜 ហាងអាហារយើង</h2>
+
+  <!-- បញ្ជីមុខម្ហូប -->
+  <div class="card">
+    <div><strong>បាយឆាសាច់ជ្រូក</strong> - $2.50</div>
+    <button class="btn" onclick="addToCart('បាយឆាសាច់ជ្រូក', 2.50)">ជ្រើសរើស</button>
+  </div>
+  <div class="card">
+    <div><strong>មីឆាសាច់គោ</strong> - $3.00</div>
+    <button class="btn" onclick="addToCart('មីឆាសាច់គោ', 3.00)">ជ្រើសរើស</button>
+  </div>
+  <div class="card">
+    <div><strong>កាហ្វេទឹកដោះគោទឹកកក</strong> - $1.50</div>
+    <button class="btn" onclick="addToCart('កាហ្វេទឹកដោះគោទឹកកក', 1.50)">ជ្រើសរើស</button>
+  </div>
+
+  <hr>
+  <h3>🛒 កញ្ចប់កុម្មង់៖ <span id="cart-items">ទទេ</span></h3>
+  <h4>សរុប៖ $<span id="total-price">0.00</span></h4>
+
+  <!-- ទម្រង់បំពេញព័ត៌មាន -->
+  <div class="form-group">
+    <input type="text" id="phone" placeholder="លេខទូរស័ព្ទទំនាក់ទំនង" required>
+    <input type="text" id="address" placeholder="អាសយដ្ឋាន/ទីតាំងប្រគល់" required>
+  </div>
+
+  <button class="submit-btn" onclick="sendOrder()">បញ្ជូនការកុម្មង់</button>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // ពង្រីកអេក្រង់ Mini App
+
+    // 🔴 ដាក់ព័ត៌មាន Bot របស់អ្នកនៅទីនេះ
+    const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
+    const CHAT_ID = "YOUR_GROUP_CHAT_ID_HERE";
+
+    let cart = [];
+    let total = 0;
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      total += price;
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('cart-items').innerText = cart.map(c => c.item).join(', ');
+      document.getElementById('total-price').innerText = total.toFixed(2);
+    }
+
+    function sendOrder() {
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+
+      if (cart.length === 0) {
+        alert("សូមជ្រើសរើសមុខម្ហូបយ៉ាងហោចណាស់មួយ!");
+        return;
+      }
+      if (!phone || !address) {
+        alert("សូមបំពេញលេខទូរស័ព្ទ និងអាសយដ្ឋាន!");
+        return;
+      }
+
+      // រៀបចំប្លង់សារផ្ញើចូល Telegram Group
+      let itemList = cart.map(c => `- ${c.item}: $${c.price.toFixed(2)}`).join('\n');
+      let user = tg.initDataUnsafe?.user;
+      let customerName = user ? `${user.first_name || ''} ${user.last_name || ''}` : "អតិថិជន";
+
+      let message = `🛒 <b>មានការកុម្មង់ថ្មី!</b>\n\n` +
+                    `👤 <b>អតិថិជន:</b> ${customerName}\n` +
+                    `📞 <b>លេខទូរស័ព្ទ:</b> ${phone}\n` +
+                    `📍 <b>ទីតាំង:</b> ${address}\n\n` +
+                    `🍽 <b>មុខម្ហូប:</b>\n${itemList}\n\n` +
+                    `💰 <b>សរុបរួម:</b> $${total.toFixed(2)}`;
+
+      // ផ្ញើសារតាមរយៈ Telegram API
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+          parse_mode: "HTML"
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          alert("ការកុម្មង់ត្រូវបានផ្ញើរួចរាល់! អរគុណ។");
+          tg.close(); // បិទ Mini App វិញ
+        } else {
+          alert("មានបញ្ហាក្នុងការផ្ញើ! សូមព្យាយាមម្តងទៀត។");
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>
