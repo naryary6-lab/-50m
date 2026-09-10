@@ -3,115 +3,515 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ហាងអាហារយើង - កុម្មង់ម្ហូប</title>
+  <title>ផ្ទះលក់បាយ គុយទាវ មីឆា - បុរីគៀងហ៊ត 50m</title>
+  <!-- Google Fonts សម្រាប់ Font ខ្មែរប្រណិត -->
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&family=Moul&display=swap" rel="stylesheet">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  
   <style>
-    body { font-family: sans-serif; padding: 15px; background-color: #f5f5f5; margin: 0; }
-    h2 { text-align: center; color: #333; }
-    .card { background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .btn { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
-    .form-group { margin-top: 15px; }
-    input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-    .submit-btn { width: 100%; background: #0088cc; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; margin-top: 15px; cursor: pointer; }
+    :root {
+      --dark-green: #0A4324;
+      --light-green: #2E8B57;
+      --accent-red: #D90429;
+      --accent-orange: #FF7B00;
+      --black: #1A1A1A;
+      --bg-gray: #F4F6F8;
+    }
+
+    * { box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; }
+    body { background-color: var(--bg-gray); margin: 0; padding-bottom: 30px; color: var(--black); }
+
+    /* Hero Board 16:9 */
+    .hero-board {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, var(--dark-green), var(--light-green));
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border-bottom: 4px solid var(--accent-orange);
+    }
+
+    .hero-title {
+      font-family: 'Moul', cursive;
+      font-size: 20px;
+      color: #FFD700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      margin: 0 0 8px 0;
+      line-height: 1.4;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      background: rgba(0,0,0,0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 5px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      background: var(--accent-red);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .container { padding: 15px; }
+
+    /* Section Headers */
+    .section-title {
+      font-family: 'Moul', cursive;
+      font-size: 15px;
+      color: var(--dark-green);
+      border-left: 5px solid var(--accent-red);
+      padding-left: 8px;
+      margin: 20px 0 10px 0;
+    }
+
+    /* Grid layout សម្រាប់ Menu (Thumbnail 4:5) */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .menu-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #E0E0E0;
+    }
+
+    .menu-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background-color: #E8EFE9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      position: relative;
+    }
+
+    .price-tag {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: var(--accent-red);
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .menu-info {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+    .menu-name { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+
+    .add-btn {
+      background: var(--dark-green);
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Option Add-ons ពណ៌ទឹកក្រូច */
+    .addon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .addon-btn {
+      background: var(--accent-orange);
+      color: white;
+      border: none;
+      padding: 10px 5px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Cart Summary & Form */
+    .box-card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* ប្រអប់ស្នើសុំអក្សរធំៗ */
+    .big-textarea {
+      width: 100%;
+      height: 80px;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border: 2px solid var(--dark-green);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    select, input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 12px;
+      border: 1px solid #CCC;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent-red);
+      color: white;
+      font-family: 'Moul', cursive;
+      font-size: 16px;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3);
+    }
+
+    .contact-box {
+      background: #EAF4EE;
+      border: 1px dashed var(--dark-green);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
 
-  <h2>🍜 ហាងអាហារយើង</h2>
-
-  <!-- បញ្ជីមុខម្ហូប -->
-  <div class="card">
-    <div><strong>បាយឆាសាច់ជ្រូក</strong> - $2.50</div>
-    <button class="btn" onclick="addToCart('បាយឆាសាច់ជ្រូក', 2.50)">ជ្រើសរើស</button>
-  </div>
-  <div class="card">
-    <div><strong>មីឆាសាច់គោ</strong> - $3.00</div>
-    <button class="btn" onclick="addToCart('មីឆាសាច់គោ', 3.00)">ជ្រើសរើស</button>
-  </div>
-  <div class="card">
-    <div><strong>កាហ្វេទឹកដោះគោទឹកកក</strong> - $1.50</div>
-    <button class="btn" onclick="addToCart('កាហ្វេទឹកដោះគោទឹកកក', 1.50)">ជ្រើសរើស</button>
+  <!-- Hero Board ខ្នាត 16:9 -->
+  <div class="hero-board">
+    <div class="hero-title">ផ្ទះលក់បាយ គុយទាវ មីឆា</div>
+    <div class="hero-sub">បុរីគៀងហ៊ត 50m | ផ្ទះ FL 36 ផ្លូវ 04</div>
+    <div class="hero-badge">⏰ ម៉ោងបើកលក់៖ 6:00 AM - 11:00 AM</div>
   </div>
 
-  <hr>
-  <h3>🛒 កញ្ចប់កុម្មង់៖ <span id="cart-items">ទទេ</span></h3>
-  <h4>សរុប៖ $<span id="total-price">0.00</span></h4>
+  <div class="container">
 
-  <!-- ទម្រង់បំពេញព័ត៌មាន -->
-  <div class="form-group">
-    <input type="text" id="phone" placeholder="លេខទូរស័ព្ទទំនាក់ទំនង" required>
-    <input type="text" id="address" placeholder="អាសយដ្ឋាន/ទីតាំងប្រគល់" required>
+    <!-- ១. Menu បាយ -->
+    <div class="section-title">🍚 Menu បាយ (ថ្ងៃនេះ)</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-thumb">🍱<span class="price-tag">5000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">បាយសាច់ជ្រូកសុទ្ធ</div>
+          <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូកសុទ្ធ', 5000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍳<span class="price-tag">5000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">បាយសាច់ជ្រូក ពងទាចៀនឆ្អិន</div>
+          <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូក ពងទាចៀនឆ្អិន', 5000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍳<span class="price-tag">5000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">បាយសាច់ជ្រូក ពងទាជាប់ព្នៅ</div>
+          <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូក ពងទាជាប់ព្នៅ', 5000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🥚<span class="price-tag">5000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">បាយសាច់ជ្រូក ពងទា ខ</div>
+          <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូក ពងទា ខ', 5000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍗<span class="price-tag">5000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">បាយសាច់មាន់</div>
+          <button class="add-btn" onclick="addToCart('បាយសាច់មាន់', 5000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍚<span class="price-tag">1000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">បាយស 1 ប្រអប់</div>
+          <button class="add-btn" onclick="addToCart('បាយស 1 ប្រអប់', 1000)">+ ថែម</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ២. Menu គុយទាវ -->
+    <div class="section-title">🍜 Menu គុយទាវ</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-thumb">🍜<span class="price-tag">7000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">គុយទាវ ប្រហិតសាច់គោ</div>
+          <button class="add-btn" onclick="addToCart('គុយទាវ ប្រហិតសាច់គោ', 7000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍜<span class="price-tag">7000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">គុយទាវ គ្រឿងក្នុងជ្រូក</div>
+          <button class="add-btn" onclick="addToCart('គុយទាវ គ្រឿងក្នុងជ្រូក', 7000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">✨<span class="price-tag">10000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">គុយទាវ គ្រឿងក្នុងពិសេស</div>
+          <button class="add-btn" onclick="addToCart('គុយទាវ គ្រឿងក្នុងពិសេស', 10000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍜<span class="price-tag">7000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">គុយទាវ សាច់ជ្រូកចិញ្ច្រាំ</div>
+          <button class="add-btn" onclick="addToCart('គុយទាវ សាច់ជ្រូកចិញ្ច្រាំ', 7000)">+ ថែម</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ៣. Menu មីឆា & ស៊ុបមី -->
+    <div class="section-title">🍝 Menu មីឆា & ស៊ុបមី (មីដុំ)</div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-thumb">🍝<span class="price-tag">7000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">មីឆា សាច់គោ ពងទា</div>
+          <button class="add-btn" onclick="addToCart('មីឆា សាច់គោ ពងទា', 7000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍝<span class="price-tag">7000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">មីឆា សាច់ជ្រូក</div>
+          <button class="add-btn" onclick="addToCart('មីឆា សាច់ជ្រូក', 7000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍲<span class="price-tag">7000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">ស៊ុបមី ប្រហិតសាច់គោ</div>
+          <button class="add-btn" onclick="addToCart('ស៊ុបមី ប្រហិតសាច់គោ', 7000)">+ ថែម</button>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb">🍲<span class="price-tag">10000៛</span></div>
+        <div class="menu-info">
+          <div class="menu-name">ស៊ុបមី គ្រឿងក្នុងពិសេស</div>
+          <button class="add-btn" onclick="addToCart('ស៊ុបមី គ្រឿងក្នុងពិសេស', 10000)">+ ថែម</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ៤. គ្រឿងកុម្មង់បន្ថែម (Add-ons ពណ៌ទឹកក្រូច) -->
+    <div class="section-title">➕ កុម្មង់បន្ថែមពីលើ</div>
+    <div class="addon-grid">
+      <button class="addon-btn" onclick="addToCart('បន្ថែម ប្រហិត', 2000)"><span>+ ប្រហិត</span> <span>2000៛</span></button>
+      <button class="addon-btn" onclick="addToCart('បន្ថែម ពងទាចៀន', 1000)"><span>+ ពងទាចៀន</span> <span>1000៛</span></button>
+      <button class="addon-btn" onclick="addToCart('បន្ថែម ពងទា ខ', 1000)"><span>+ ពងទា ខ</span> <span>1000៛</span></button>
+      <button class="addon-btn" onclick="addToCart('បន្ថែម ទឹកស៊ុប (តូច)', 2000)"><span>+ ទឹកស៊ុប</span> <span>2000៛</span></button>
+      <button class="addon-btn" onclick="addToCart('បន្ថែម ទឹកស៊ុប (ធំ)', 5000)"><span>+ ទឹកស៊ុបធំ</span> <span>5000៛</span></button>
+      <button class="addon-btn" onclick="addToCart('បន្ថែម តែទឹកកក', 1000)"><span>+ តែទឹកកក</span> <span>1000៛</span></button>
+      <button class="addon-btn" style="background:#2E8B57;" onclick="addToCart('បន្ថែម ម្ទេស Free', 0)"><span>+ ម្ទេស</span> <span>Free</span></button>
+      <button class="addon-btn" style="background:#2E8B57;" onclick="addToCart('បន្ថែម ក្រូចឆ្មា Free', 0)"><span>+ ក្រូចឆ្មា</span> <span>Free</span></button>
+    </div>
+
+    <!-- ៥. សង្ខេបកញ្ចប់កុម្មង់ & ទម្រង់ផ្ញើ -->
+    <div class="box-card">
+      <h3 style="margin-top:0; color:var(--dark-green);">🛒 បញ្ជីកុម្មង់របស់អ្នក</h3>
+      <div id="cart-list" style="font-size:14px; margin-bottom:10px;">(មិនទាន់មានមុខម្ហូប)</div>
+      <hr>
+      <div style="font-size:16px; font-weight:bold; color:var(--accent-red);">
+        ថ្លៃអាហារសរុប: <span id="food-total">0</span> ៛
+      </div>
+      <div style="font-size:14px; font-weight:bold; color:var(--dark-green); margin-top:5px;">
+        ថ្លៃដឹកជញ្ជូន: <span id="delivery-fee">0</span> ៛
+      </div>
+      <div style="font-size:18px; font-weight:bold; color:var(--black); margin-top:8px; border-top: 1px dashed #ccc; padding-top: 8px;">
+        សរុបរួមទាំងអស់: <span id="grand-total">0</span> ៛
+      </div>
+    </div>
+
+    <!-- ៦. ជ្រើសរើសទីតាំង & ចំណាំ -->
+    <div class="box-card">
+      <label><b>📍 ជ្រើសរើសទីតាំងដឹកជញ្ជូន៖</b></label>
+      <select id="location" onchange="calculateTotal()">
+        <option value="0">ក្នុងបុរីគៀងហ៊ត ផ្លូវ 1, 2, 3, 4 (Free សេវាដឹក)</option>
+        <option value="0">Office បុរីគៀងហ៊ត ក្លោងទ្វារធំ (Free សេវាដឹក)</option>
+        <option value="0">Office បុរីគៀងហ៊ត ជាប់ផ្លូវធំ (Free សេវាដឹក)</option>
+        <option value="4000">ខាងក្រៅបុរីគៀងហ៊ត (តិចជាង 4km) - 4000៛</option>
+      </select>
+
+      <label><b>📞 លេខទូរស័ព្ទទំនាក់ទំនង៖</b></label>
+      <input type="text" id="phone" placeholder="ឧទាហរណ៍៖ 012 345 678" required>
+
+      <label><b>📝 ប្រអប់សំណូមពរពិសេស (ចង់បានអ្វីបន្ថែម/បន្ថយ)៖</b></label>
+      <textarea id="note" class="big-textarea" placeholder="ឧ. អត់ដាក់បន្លែ, ម្ទេសច្រើន, សុំទឹកស៊ុបច្រើន..."></textarea>
+
+      <label><b>🧾 ភ្ជាប់រូបភាព Slip បង់ប្រាក់ (ពិនិត្យដោយ Admin)៖</b></label>
+      <input type="file" id="slip" accept="image/*" required>
+
+      <button class="submit-btn" onclick="submitOrder()">បញ្ជូនការកុម្មង់ឥឡូវនេះ</button>
+    </div>
+
+    <!-- ៧. ប្រអប់ទំនាក់ទំនងបន្ទាន់ -->
+    <div class="contact-box">
+      <b>📞 ករណីបន្ទាន់ សូមទំនាក់ទំនង៖</b><br>
+      • កុម្មង់បន្ទាន់ (Telegram): <b>060 236 068</b><br>
+      • Call ដឹកជញ្ជូន: <b>071 904 3989</b><br>
+      • Channel: <a href="https://t.me/baysroupBoreykeanghort" target="_blank">Join Channel</a>
+    </div>
+
   </div>
-
-  <button class="submit-btn" onclick="sendOrder()">បញ្ជូនការកុម្មង់</button>
 
   <script>
     const tg = window.Telegram.WebApp;
-    tg.expand(); // ពង្រីកអេក្រង់ Mini App
+    tg.expand();
 
-    // 🔴 ដាក់ព័ត៌មាន Bot របស់អ្នកនៅទីនេះ
-    const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
-    const CHAT_ID = "YOUR_GROUP_CHAT_ID_HERE";
+    // 🔴 ព័ត៌មាន Bot & Group របស់អ្នក
+    const BOT_TOKEN = "8851377253:AAH-ABSDJ-PE4zL36e4i6xLB2Fb9rmkUaAQ";
+    const CHAT_ID = "-1004387546731";
 
     let cart = [];
-    let total = 0;
+    let foodTotal = 0;
 
-    function addToCart(item, price) {
-      cart.push({ item, price });
-      total += price;
-      updateUI();
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCartUI();
     }
 
-    function updateUI() {
-      document.getElementById('cart-items').innerText = cart.map(c => c.item).join(', ');
-      document.getElementById('total-price').innerText = total.toFixed(2);
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
     }
 
-    function sendOrder() {
+    function updateCartUI() {
+      const cartList = document.getElementById('cart-list');
+      if (cart.length === 0) {
+        cartList.innerHTML = "(មិនទាន់មានមុខម្ហូប)";
+        foodTotal = 0;
+      } else {
+        let html = '';
+        foodTotal = 0;
+        cart.forEach((item, index) => {
+          foodTotal += item.price;
+          html += `<div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <span>- ${item.name} (${item.price}៛)</span>
+                    <span style="color:red; cursor:pointer;" onclick="removeFromCart(${index})">❌ លុប</span>
+                   </div>`;
+        });
+        cartList.innerHTML = html;
+      }
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      const deliveryFee = parseInt(document.getElementById('location').value) || 0;
+      const grandTotal = foodTotal + deliveryFee;
+
+      document.getElementById('food-total').innerText = foodTotal.toLocaleString();
+      document.getElementById('delivery-fee').innerText = deliveryFee.toLocaleString();
+      document.getElementById('grand-total').innerText = grandTotal.toLocaleString();
+    }
+
+    function submitOrder() {
       const phone = document.getElementById('phone').value;
-      const address = document.getElementById('address').value;
+      const locationText = document.getElementById('location').options[document.getElementById('location').selectedIndex].text;
+      const deliveryFee = parseInt(document.getElementById('location').value);
+      const note = document.getElementById('note').value;
+      const slipFile = document.getElementById('slip').files[0];
 
       if (cart.length === 0) {
         alert("សូមជ្រើសរើសមុខម្ហូបយ៉ាងហោចណាស់មួយ!");
         return;
       }
-      if (!phone || !address) {
-        alert("សូមបំពេញលេខទូរស័ព្ទ និងអាសយដ្ឋាន!");
+      if (!phone) {
+        alert("សូមបំពេញលេខទូរស័ព្ទ!");
+        return;
+      }
+      if (!slipFile) {
+        alert("សូមភ្ជាប់រូបភាព Slip ទូទាត់ប្រាក់!");
         return;
       }
 
-      // រៀបចំប្លង់សារផ្ញើចូល Telegram Group
-      let itemList = cart.map(c => `- ${c.item}: $${c.price.toFixed(2)}`).join('\n');
+      const grandTotal = foodTotal + deliveryFee;
       let user = tg.initDataUnsafe?.user;
       let customerName = user ? `${user.first_name || ''} ${user.last_name || ''}` : "អតិថិជន";
 
-      let message = `🛒 <b>មានការកុម្មង់ថ្មី!</b>\n\n` +
+      let itemList = cart.map(c => `• ${c.name}: ${c.price}៛`).join('\n');
+
+      let caption = `🛍 <b>មានការកុម្មង់ថ្មី! (ផ្ទះលក់បាយ)</b>\n\n` +
                     `👤 <b>អតិថិជន:</b> ${customerName}\n` +
                     `📞 <b>លេខទូរស័ព្ទ:</b> ${phone}\n` +
-                    `📍 <b>ទីតាំង:</b> ${address}\n\n` +
-                    `🍽 <b>មុខម្ហូប:</b>\n${itemList}\n\n` +
-                    `💰 <b>សរុបរួម:</b> $${total.toFixed(2)}`;
+                    `📍 <b>ទីតាំង:</b> ${locationText}\n\n` +
+                    `🍽 <b>មុខម្ហូបដែលកុម្មង់:</b>\n${itemList}\n\n` +
+                    `📝 <b>ចំណាំពិសេស:</b> ${note || 'គ្មាន'}\n` +
+                    `-----------------------------\n` +
+                    `💵 ថ្លៃម្ហូប: ${foodTotal.toLocaleString()}៛\n` +
+                    `🛵 ថ្លៃដឹក: ${deliveryFee.toLocaleString()}៛\n` +
+                    `💰 <b>សរុបរួម: ${grandTotal.toLocaleString()}៛</b>`;
 
-      // ផ្ញើសារតាមរយៈ Telegram API
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: message,
-          parse_mode: "HTML"
-        })
+      // ផ្ញើរូប Slip + ព័ត៌មាន Order ចូល Telegram Group
+      const formData = new FormData();
+      formData.append('chat_id', CHAT_ID);
+      formData.append('photo', slipFile);
+      formData.append('caption', caption);
+      formData.append('parse_mode', 'HTML');
+
+      // បង្ហាញ Loading
+      tg.MainButton.setText("កំពុងផ្ញើការកុម្មង់...").show();
+
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+        method: 'POST',
+        body: formData
       })
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
+        tg.MainButton.hide();
         if (data.ok) {
-          alert("ការកុម្មង់ត្រូវបានផ្ញើរួចរាល់! អរគុណ។");
-          tg.close(); // បិទ Mini App វិញ
+          alert("អរគុណ! ការកុម្មង់ និង Slip ទូទាត់ត្រូវបានផ្ញើជូន Admin ពិនិត្យរួចរាល់។");
+          tg.close();
         } else {
-          alert("មានបញ្ហាក្នុងការផ្ញើ! សូមព្យាយាមម្តងទៀត។");
+          alert("មានបញ្ហាក្នុងការផ្ញើ! សូមពិនិត្យមើលរូបភាព Slip រួចព្យាយាមម្តងទៀត។");
         }
       })
-      .catch(error => console.error('Error:', error));
+      .catch(err => {
+        tg.MainButton.hide();
+        console.error(err);
+        alert("កំហុសបច្ចេកទេស! សូមព្យាយាមម្តងទៀត។");
+      });
     }
   </script>
 </body>
