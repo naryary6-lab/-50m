@@ -3,212 +3,286 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ផ្ទះលក់បាយ គុយទាវ មីឆា - បុរីគៀងហ៊ត</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700;900&family=Moul&display=swap" rel="stylesheet">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <title>ដំណាប់ចេក MOMORE - យោន ស៊ីនួន</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700;900&display=swap" rel="stylesheet">
   
   <style>
-    :root {
-      --bg-dark: #120303;
-      --card-bg: #1E0A0A;
-      --gold-yellow: #FFD700;
-      --neon-orange: #FF5722;
-      --bright-red: #D90429;
-      --blend-blood: #2b0505;
-      --text-light: #FFF;
+    * { box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; margin: 0; padding: 0; }
+    body { background-color: #f4f5f7; color: #333; padding-bottom: 90px; }
+
+    .container { padding: 12px; max-width: 480px; margin: 0 auto; }
+
+    .category-header {
+      background: #1e1e1e; color: #ff9800; font-weight: bold; font-size: 15px;
+      padding: 10px 14px; border-radius: 10px; margin: 16px 0 12px 0;
+    }
+    .category-header:first-child { margin-top: 0; }
+
+    /* Product Grid Layout */
+    .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+    .product-card {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee;
+      display: flex; flex-direction: column; justify-content: space-between; position: relative;
     }
 
-    * { box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; }
-    body { background-color: var(--bg-dark); margin: 0; padding-bottom: 70px; color: var(--text-light); }
-
-    .container { padding: 12px; }
-
-    .section-title {
-      font-family: 'Moul', cursive;
-      font-size: 20px;
-      color: var(--gold-yellow);
-      border-left: 5px solid var(--bright-red);
-      padding-left: 8px;
-      margin: 20px 0 12px 0;
+    .badge-video {
+      position: absolute; top: 8px; right: 8px; background: #ff9800; color: #fff;
+      font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: bold; z-index: 2;
     }
 
-    /* Menu Grid */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .product-img { width: 100%; aspect-ratio: 1 / 1.1; object-fit: cover; cursor: pointer; }
+
+    .product-details { padding: 10px; }
+    .product-title { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 4px; line-height: 1.3; }
+    .product-subtitle { font-size: 13px; font-weight: 700; color: #d32f2f; margin-bottom: 8px; }
+
+    /* Quantity Controls (- 0 +) */
+    .qty-control {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 10px; padding: 2px;
+    }
+    .qty-btn {
+      width: 32px; height: 32px; background: #fff; border: 1px solid #ddd;
+      border-radius: 8px; font-weight: bold; font-size: 16px; color: #d32f2f; cursor: pointer;
+    }
+    .qty-number { font-weight: 700; font-size: 14px; }
+
+    /* Bottom Fixed Order Bar */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
+      border-top: 1px solid #ddd; padding: 10px 16px; display: flex;
+      justify-content: space-between; align-items: center; z-index: 100;
+    }
+    .total-text { font-size: 12px; color: #666; }
+    .total-price { font-size: 16px; font-weight: 900; color: #d32f2f; }
+    .btn-checkout {
+      background: #ff9800; color: #fff; border: none; font-size: 15px;
+      font-weight: bold; padding: 10px 24px; border-radius: 10px; cursor: pointer;
     }
 
-    .menu-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 2px solid #331010;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .menu-thumb {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .menu-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-    .price-tag {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0, 0, 0, 0.85);
-      color: var(--gold-yellow);
-      font-weight: bold;
-      font-size: 20px;
-      padding: 2px 8px;
-      border-radius: 6px;
-      border: 1px solid var(--gold-yellow);
-    }
-
-    .menu-info { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .menu-name { font-weight: 700; font-size: 16px; color: #FFF; margin-bottom: 8px; }
-
-    .btn-group { display: flex; gap: 5px; }
-
-    .add-btn {
-      flex: 1;
-      background: linear-gradient(180deg, var(--bright-red), #900000);
-      color: white; border: 1px solid var(--gold-yellow);
-      padding: 8px 4px; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer;
-    }
-
-    .detail-btn {
-      background: #333; color: var(--gold-yellow);
-      border: 1px solid var(--gold-yellow);
-      padding: 8px; border-radius: 6px; font-size: 13px; cursor: pointer;
-    }
-
-    /* Detail Modal Elements */
+    /* Modal / Pop-up Styling */
     .modal {
-      display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.9); overflow: auto;
+      display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); overflow-y: auto;
     }
-    .modal-content {
-      background-color: var(--blend-blood); margin: 5% auto; padding: 20px;
-      border: 2px solid var(--gold-yellow); border-radius: 12px; width: 90%; max-width: 450px;
+    .modal-card {
+      background: #fff; border-radius: 20px; width: 92%; max-width: 440px;
+      margin: 5% auto; overflow: hidden; position: relative; animation: popUp 0.3s ease;
     }
-    .modal-img {
-      width: 100%; border-radius: 8px; border: 2px solid var(--gold-yellow);
-      max-height: 250px; object-fit: cover;
+    @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .modal-close-btn {
+      position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6);
+      color: #fff; border: none; width: 28px; height: 28px; border-radius: 50%;
+      font-weight: bold; cursor: pointer; z-index: 10;
     }
-    .ingredient-box {
-      background: #120303; padding: 12px; border-radius: 8px;
-      border: 1px dashed var(--gold-yellow); margin-top: 10px; font-size: 15px; line-height: 1.6;
-    }
-    .close-btn {
-      background: var(--bright-red); color: white; border: none;
-      padding: 8px 16px; border-radius: 6px; font-size: 16px; font-weight: bold;
-      margin-top: 15px; cursor: pointer; float: right;
-    }
+
+    .modal-banner { width: 100%; height: 220px; object-fit: cover; }
+    .modal-body { padding: 16px; }
+
+    .modal-item-title { font-size: 18px; font-weight: 900; color: #111; }
+    .modal-item-price { font-size: 18px; font-weight: bold; color: #d32f2f; margin: 4px 0 14px 0; }
+
+    .info-section { margin-bottom: 12px; }
+    .info-header { font-size: 14px; font-weight: 700; color: #e65100; margin-bottom: 2px; }
+    .info-desc { font-size: 13px; color: #555; line-height: 1.5; }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="section-title">🍜 បញ្ជីមុខម្ហូប និងគ្រឿងផ្សំ</div>
-    
-    <!-- Render Auto Menu -->
-    <div class="menu-grid" id="menu-container"></div>
+    <div class="category-header">1. ដំណាប់ចេកណាំវ៉ាខ្មែរ (រៀបចំពិសេស)</div>
+    <div class="product-grid" id="category1"></div>
+
+    <div class="category-header">2. ចេកឆ្ងាយស្រួយ & ផលិតផលកែច្នៃ</div>
+    <div class="product-grid" id="category2"></div>
   </div>
 
-  <!-- Modal បង្ហាញរូបធំ និងគ្រឿងផ្សំ -->
-  <div id="detailModal" class="modal">
-    <div class="modal-content">
-      <h2 id="modal-title" style="color:var(--gold-yellow); margin-top:0;"></h2>
-      <img id="modal-img" class="modal-img" src="" alt="ម្ហូប">
-      <div style="font-size: 22px; color: var(--gold-yellow); font-weight: bold; margin: 10px 0;" id="modal-price"></div>
-      
-      <div class="ingredient-box">
-        <b style="color:var(--neon-orange);">🥗 គ្រឿងផ្សំ និងរសជាតិ៖</b><br>
-        <span id="modal-ingredients"></span>
-      </div>
+  <!-- Bottom Order Bar -->
+  <div class="bottom-bar">
+    <div>
+      <div class="total-text">សរុបសាច់ប្រាក់:</div>
+      <div class="total-price" id="totalAmount">0 ៛</div>
+    </div>
+    <button class="btn-checkout">បន្តការកុម្ម៉ង់</button>
+  </div>
 
-      <button class="close-btn" onclick="closeDetailModal()">បិទ</button>
-      <div style="clear:both;"></div>
+  <!-- Big Pop-up Modal -->
+  <div id="itemModal" class="modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      <img id="mImg" class="modal-banner" src="" alt="">
+      
+      <div class="modal-body">
+        <div id="mTitle" class="modal-item-title"></div>
+        <div id="mPrice" class="modal-item-price"></div>
+
+        <div class="info-section">
+          <div class="info-header">☀️ អត្ថប្រយោជន៍ និងគុណសម្បត្តិ</div>
+          <div class="info-desc" id="mBenefit"></div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-header">✨ រសជាតិ & គុណភាព</div>
+          <div class="info-desc" id="mFlavor"></div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-header">📦 ការវេចខ្ចប់</div>
+          <div class="info-desc" id="mPackaging"></div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-header">🛡️ ការរក្សាទុក និងគុណប្រយោជន៍</div>
+          <div class="info-desc" id="mStorage"></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    // 💡 កំណត់ទិន្នន័យម្ហូប និងឈ្មោះរូបភាព (A.jpg, B.jpg, C.jpg...)
-    const foodList = [
+    const productsCat1 = [
       {
-        id: "A",
-        name: "គុយទាវប្រហិតសាច់គោ",
-        price: 7000,
-        img: "A.jpg", // រូប A.jpg នៅក្នុង Folder ជាមួយ index.html
-        ingredients: "🍜 មានគុយទាវ, ទឹកស៊ុបដិតក្លិនឈ្ងុយ, សាច់គោស្រស់, ប្រហិតសាច់គោ 3 គ្រាប់, សណ្តែកបណ្តុះ, សាឡាដ, ខ្ទឹមបំពង, ជីរណារ, ទឹកសៀង, ទឹកម្ទេស, និងក្រូចឆ្មារ។"
+        id: "P01",
+        title: "ដំណាប់ចេក រសជាតិដើម",
+        price: "8,000 ៛ (200g)",
+        val: 8000,
+        img: "A.jpg",
+        fallbackImg: "https://images.unsplash.com/photo-1528825871115-3581a5387919?w=500",
+        benefit: "សម្បូរវីតាមីន និងប៉ូអ៊ុតតាសស្យូម ផ្តល់ថាមពលភ្លាមៗ គ្មានសារធាតុគីមីរក្សាទុក។",
+        flavor: "សាច់ដំណាប់ទន់ស្អិត ផ្អែមឆ្ងាញ់បែបធម្មជាតិ",
+        packaging: "បិទបន្ទះស្តើង សម្អាតក្នុងទូអនាម័យ វេចខ្ចប់ក្នុងប្រអប់បិទជិតការពារខ្យល់",
+        storage: "រក្សាទុកក្នុងសីតុណ្ហភាពធម្មតា កន្លែងស្ងួតត្រជាក់ បានរហូតដល់ ៦ ខែ"
       },
       {
-        id: "B",
-        name: "បាយសាច់ជ្រូក ពងទាចៀន",
-        price: 5000,
-        img: "B.jpg", // រូប B.jpg នៅក្នុង Folder ជាមួយ index.html
-        ingredients: "🍚 មានបាយស ក្តៅៗ, សាច់ជ្រូកអាំង ជ្រក់ត្រសក់/ឆាយពៅ, ពងទាចៀន 1 គ្រាប់, ទឹកត្រីបុកពិសេស និងទឹកស៊ុប។"
+        id: "P02",
+        title: "ដំណាប់ចេក រោយល្ង ស/ខ្មៅ",
+        price: "8,000 ៛ (200g)",
+        val: 8000,
+        img: "B.jpg",
+        fallbackImg: "https://images.unsplash.com/photo-1603833665858-e61d17a86224?w=500",
+        benefit: "ជួយដល់ការរំលាយអាហារ និងមានជាតិអូមេហ្គាពីល្ងធម្មជាតិ។",
+        flavor: "ឈ្ងុយល្ងលីង ស្អិតល្មួត រសជាតិឆ្ងាញ់ពិសារ",
+        packaging: "ប្រអប់ស្តង់ដារអនាម័យ បិទជិតការពារខ្យល់ចូល",
+        storage: "រក្សាទុកក្នុងសីតុណ្ហភាពធម្មតារហូតដល់ ៦ ខែ"
       },
       {
-        id: "C",
-        name: "មីឆាសាច់គោ ពងទា",
-        price: 7000,
-        img: "C.jpg", // រូប C.jpg នៅក្នុង Folder ជាមួយ index.html
-        ingredients: "🍝 មីឆាក្តៅៗជាមួយសាច់គោ, ពងទាចៀន, បន្លែខាត់ណា, សណ្តែកបណ្តុះ, ទឹកសៀង និងទឹកម្ទេសឆ្ងាញ់ពិសា។"
+        id: "P03",
+        title: "ដំណាប់ចេក ស្រោចទឹកឃ្មុំ",
+        price: "10,000 ៛ (200g)",
+        val: 10000,
+        img: "C.jpg",
+        fallbackImg: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=500",
+        benefit: "បន្ថែមប្រយោជន៍ពីទឹកឃ្មុំព្រៃ បង្កើនអភ័យ និងថាមពល។",
+        flavor: "ផ្អែមមុត ឈ្ងុយទឹកឃ្មុំប្រកបដោយគុណភាព",
+        packaging: "ថង់ហ្ស៊ីបអនាម័យ ងាយស្រួលរក្សាទុក",
+        storage: "រក្សាទុកក្នុងកន្លែងត្រជាក់បាន ៦ ខែ"
       },
       {
-        id: "D",
-        name: "ដំណាប់ចេកណាំវ៉ាខ្មែរ (ល្ងខ្មៅ)",
-        price: 10000,
-        img: "D.jpg", // រូប D.jpg នៅក្នុង Folder ជាមួយ index.html
-        ingredients: "🍌 ចេកណាំវ៉ាធម្មជាតិ 200g, ដំណាប់ស្អិតល្មួត រោយល្ងស និងល្ងខ្មៅឈ្ងុយឆ្ងាញ់ អត់សារធាតុគីមី។"
+        id: "P04",
+        title: "ដំណាប់ចេក រសជាតិដូងក្រអូប",
+        price: "9,000 ៛ (200g)",
+        val: 9000,
+        img: "D.jpg",
+        fallbackImg: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500",
+        benefit: "រួមបញ្ចូលរសជាតិចេក និងដូង ផ្តល់ជាតិសរសៃខ្ពស់។",
+        flavor: "ឈ្ងុយខ្ទិះដូង ផ្អែមល្មមមិនទ្រលាន់",
+        packaging: "ប្រអប់អនាម័យការពារសំណើម",
+        storage: "រក្សាទុកក្នុងសីតុណ្ហភាពធម្មតា"
       }
     ];
 
-    // Auto Render បង្កើតកាតម្ហូបស្វ័យប្រវត្តិ
-    function renderMenu() {
-      const container = document.getElementById('menu-container');
-      container.innerHTML = foodList.map(item => `
-        <div class="menu-card">
-          <div class="menu-thumb" onclick="showDetail('${item.id}')">
-            <img src="${item.img}" onerror="this.src='https://via.placeholder.com/400x500?text=រូប+${item.id}'" alt="${item.name}">
-            <span class="price-tag">${item.price.toLocaleString()}៛</span>
-          </div>
-          <div class="menu-info">
-            <div class="menu-name">${item.name}</div>
-            <div class="btn-group">
-              <button class="add-btn" onclick="addToCart('${item.name}', ${item.price})">កុម្មង់</button>
-              <button class="detail-btn" onclick="showDetail('${item.id}')">🔍 គ្រឿងផ្សំ</button>
+    const productsCat2 = [
+      {
+        id: "P05",
+        title: "ចេកឆ្ងាយ ប៉ិនស្រួយ (រសជាតិប្រៃ)",
+        price: "7,000 ៛ (150g)",
+        val: 7000,
+        img: "E.jpg",
+        fallbackImg: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500",
+        benefit: "សម្រន់ស្រួយឆ្ងាញ់ គ្មានជាតិខ្លាញ់ជ្រុល ញ៉ាំមិនធុញ។",
+        flavor: "ស្រួយស្រែស ប្រៃឡែមៗ ឈ្ងុយចេកបំពង",
+        packaging: "ថង់កៀបបិទជិត ការពារស្រពោន",
+        storage: "រក្សាទុកបាន ៣ ខែ"
+      },
+      {
+        id: "P06",
+        title: "ចេកឆ្ងាយ រសជាតិផ្អែមសមល្មម",
+        price: "7,000 ៛ (150g)",
+        val: 7000,
+        img: "F.jpg",
+        fallbackImg: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=500",
+        benefit: "ផ្តល់ថាមពលរហ័ស សម្រន់ដ៏ល្អសម្រាប់ធ្វើការ និងសិក្សា។",
+        flavor: "ស្រួយ ផ្អែមឡែមៗ ល្មមឆ្ងាញ់",
+        packaging: "កញ្ចប់អនាម័យស្តង់ដារ",
+        storage: "រក្សាទុកបាន ៣ ខែ"
+      }
+    ];
+
+    const allProducts = [...productsCat1, ...productsCat2];
+    const cart = {};
+
+    function renderGrid(containerId, items) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = items.map(p => `
+        <div class="product-card">
+          <div class="badge-video">▶ វីដេអូ</div>
+          <img class="product-img" src="${p.img}" onerror="this.src='${p.fallbackImg}'" onclick="openModal('${p.id}')">
+          <div class="product-details">
+            <div class="product-title">${p.title}</div>
+            <div class="product-subtitle">${p.price}</div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="updateQty('${p.id}', -1)">-</button>
+              <span class="qty-number" id="qty-${p.id}">0</span>
+              <button class="qty-btn" onclick="updateQty('${p.id}', 1)">+</button>
             </div>
           </div>
         </div>
       `).join('');
     }
 
-    // បង្ហាញ Pop-up គ្រឿងផ្សំ និងរូបធំច្បាស់
-    function showDetail(id) {
-      const item = foodList.find(f => f.id === id);
-      if(item) {
-        document.getElementById('modal-title').innerText = item.name;
-        document.getElementById('modal-img').src = item.img;
-        document.getElementById('modal-price').innerText = item.price.toLocaleString() + '៛';
-        document.getElementById('modal-ingredients').innerText = item.ingredients;
-        document.getElementById('detailModal').style.display = 'block';
+    function updateQty(id, change) {
+      if (!cart[id]) cart[id] = 0;
+      cart[id] += change;
+      if (cart[id] < 0) cart[id] = 0;
+      
+      document.getElementById(`qty-${id}`).innerText = cart[id];
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      let total = 0;
+      allProducts.forEach(p => {
+        if (cart[p.id]) {
+          total += cart[p.id] * p.val;
+        }
+      });
+      document.getElementById('totalAmount').innerText = total.toLocaleString() + ' ៛';
+    }
+
+    function openModal(id) {
+      const p = allProducts.find(item => item.id === id);
+      if(p) {
+        document.getElementById('mImg').src = p.img;
+        document.getElementById('mImg').onerror = function() { this.src = p.fallbackImg; };
+        document.getElementById('mTitle').innerText = p.title;
+        document.getElementById('mPrice').innerText = p.price;
+        document.getElementById('mBenefit').innerText = p.benefit;
+        document.getElementById('mFlavor').innerText = p.flavor;
+        document.getElementById('mPackaging').innerText = p.packaging;
+        document.getElementById('mStorage').innerText = p.storage;
+        document.getElementById('itemModal').style.display = 'block';
       }
     }
 
-    function closeDetailModal() {
-      document.getElementById('detailModal').style.display = 'none';
+    function closeModal() {
+      document.getElementById('itemModal').style.display = 'none';
     }
 
-    // Run Initial Render
-    renderMenu();
+    renderGrid('category1', productsCat1);
+    renderGrid('category2', productsCat2);
   </script>
 </body>
 </html>
