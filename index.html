@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ផ្ទះអាហារ 36 - យោន ស៊ីនួន</title>
   
+  <!-- Google Fonts Import -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700;900&family=Kantumruy+Pro:wght@400;600;700&family=Moul&family=Nothworthy&display=swap" rel="stylesheet">
@@ -262,23 +263,25 @@
       cursor: pointer;
     }
 
-    /* Pop-up Window (Sophanith BoBble 22px Header) */
+    /* Pop-up Window (Box បញ្ជាក់ទំនិញ / Sophanith BoBble 22px Header) */
     .modal-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
       padding: 12px;
     }
     .modal-content {
-      background: var(--bg-dark);
+      background: linear-gradient(145deg, #120303 0%, #1E0A0A 100%);
       border: 2px solid var(--purple-pink);
+      box-shadow: 0 0 25px rgba(216, 27, 96, 0.3);
       border-radius: 12px;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       max-height: 92vh;
       overflow-y: auto;
       padding: 16px;
@@ -292,18 +295,23 @@
       border-bottom: 1px solid var(--purple-pink);
       padding-bottom: 8px;
       margin-bottom: 12px;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
     .modal-food-item {
       font-family: 'KD Jayavarman I', sans-serif;
-      font-size: 17px;
-      color: #FFF;
+      font-size: 16px;
+      color: var(--light-yellow);
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
     }
 
     /* KHQR Pay Box (Black blend blood-red, Orange 25px) */
     .khqr-pay-box {
       background: linear-gradient(180deg, #000000 0%, #1A0305 100%);
       border: 2px solid var(--neon-orange);
-      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.2);
+      border-radius: 10px;
       padding: 12px;
       text-align: center;
       margin: 12px 0;
@@ -311,34 +319,42 @@
     .khqr-price-display {
       font-size: 25px;
       font-weight: 900;
-      color: #FF7043; /* ទឹកក្រូច */
+      color: #FF7043;
+      text-shadow: 0 0 10px rgba(255, 112, 67, 0.5);
       margin: 6px 0;
     }
 
     input[type="text"], input[type="date"], select, textarea {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-top: 4px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       background: #000;
       color: #FFF;
       border: 1px solid var(--purple-pink);
       border-radius: 6px;
       font-size: 15px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--gold-yellow);
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
 
     .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-    .btn-close { background: #444; color: white; border: none; padding: 10px; width: 50%; border-radius: 6px; font-size: 16px; }
-    .btn-confirm { background: var(--neon-orange); color: white; border: none; padding: 10px; width: 50%; border-radius: 6px; font-weight: bold; font-size: 16px; }
+    .btn-close { background: #333; color: white; border: 1px solid #555; padding: 10px; width: 40%; border-radius: 6px; font-size: 16px; cursor: pointer; }
+    .btn-confirm { background: linear-gradient(180deg, var(--neon-orange), var(--bright-red)); color: white; border: 1px solid var(--gold-yellow); padding: 10px; width: 60%; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; }
   </style>
 </head>
 <body>
 
+  <!-- Hero Header -->
   <div class="hero-header">
     <h1 class="hero-title">ផ្ឋះអាហារ 36🍜</h1>
     <div class="hero-subtitle">បុរីគៀងហ៊ត 50mលក់បាយ គុយទាវ មីឆា</div>
   </div>
 
+  <!-- Hero Video 16:9 Container -->
   <div class="hero-video-container">
     <div class="video-overlay-badge">🔥 Mukbang Combo Set Surprised Special</div>
     <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800">
@@ -348,12 +364,14 @@
 
   <div class="container">
 
+    <!-- Daily Check-in -->
     <div class="checkin-box">
       <b style="color:#FFF; font-size: 17px;">🎁 Check in រាល់ថ្ងៃ ប្តូររង្វាន់!</b>
       <p style="font-size: 14px; margin: 4px 0 8px 0;">Check-in រៀងរាល់ថ្ងៃដើម្បីទទួលបាន Snack ជាច្រើនដោយឥតគិតថ្លៃ</p>
       <button onclick="doCheckIn()" style="background:var(--gold-yellow); color:#000; border:none; padding:6px 15px; border-radius:15px; font-weight:bold; cursor:pointer;">Check-in ថ្ងៃនេះ</button>
     </div>
 
+    <!-- MENU 1: បាយព្រឹក -->
     <div class="section-title">👩‍🍳🍛 Menu បាយព្រឹក</div>
     <div class="menu-grid">
       <div class="menu-card">
@@ -423,6 +441,7 @@
       </div>
     </div>
 
+    <!-- MENU 2: ស៊ុបមី -->
     <div class="section-title">👩‍🍳🍜 Menu ស៊ុបមី  លឿងសសៃធំ</div>
     <div class="menu-grid">
       <div class="menu-card">
@@ -492,6 +511,7 @@
       </div>
     </div>
 
+    <!-- MENU 3: មីឆា -->
     <div class="section-title">👩‍🍳🍛 Menu មីឆា មីដុំលឿង</div>
     <div class="menu-grid">
       <div class="menu-card">
@@ -561,6 +581,7 @@
       </div>
     </div>
 
+    <!-- MENU 4: ដំណាប់ចេក -->
     <div class="section-title">🍌🍌 MENU ចេកស្អិតដំណាប់ចេកណាំវ៉ាខ្មែរ 5មុខ 🍌🍌</div>
     <div class="addon-grid">
       <div class="addon-item">
@@ -585,18 +606,22 @@
       </div>
     </div>
 
+    <!-- Notes (17px) -->
     <div class="info-note">- ទីតាំងឆ្ងាយលើសពី 4km សេវាដឹក 8000៛</div>
     <div class="info-note">- ទិញដំណាប់ចេកលើស 5 ប្រអប់ Free ដឹក</div>
 
+    <!-- Urgency Box (23px, ស្វាយស៊ីជម្ពូ) -->
     <div class="highlight-purple-pink">
       📞 ករណីបន្ទាន់ Telegram: 060 236 068
     </div>
 
+    <!-- Group Links (ស្វាយស៊ីជម្ពូ) -->
     <div class="highlight-purple-pink">
       <a href="https://t.me/baysroupBoreykeanghort" target="_blank">👉 Join Channel ចូលរួមក្នុងGroup</a>
       <a href="https://t.me/baysroupBoreykeanghort" target="_blank">👉 Upthat Menu អាហារ🍲🍜👨‍🍳</a>
     </div>
 
+    <!-- Footer GIF with Khmer bonteaystey 30px -->
     <div class="footer-section">
       <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y5a2pxY2s0OHQyOGJ3cXpxYzJnYXRtM3FvY24zaXlnMnk5NXV2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR85PnGiHGlHO8w/giphy.gif" alt="Thank You" style="width:130px; border-radius:50%;">
       <div class="footer-text">
@@ -606,6 +631,7 @@
 
   </div>
 
+  <!-- Bottom Order Bar (23px Total) -->
   <div class="sticky-cart-bar">
     <div>
       <span style="font-size:14px; color:#AAA;">សរុបលុយរួម:</span><br>
@@ -614,35 +640,49 @@
     <button class="order-btn" onclick="openCheckoutModal()">បញ្ជាក់ការកុម្ម៉ង់ 🛒</button>
   </div>
 
+  <!-- Checkout Pop-up Modal (Box បញ្ជាក់ទំនិញ) -->
   <div class="modal-overlay" id="checkoutModal">
     <div class="modal-content">
-      <div class="modal-header">បញ្ជាក់ការកុម្ម៉ង់</div>
+      <!-- 22px Header -->
+      <div class="modal-header">🛒 បញ្ជាក់ការកុម្ម៉ង់ទំនិញ</div>
       
-      <div id="modal-cart-summary" style="margin-bottom:12px; border-bottom:1px dashed #555; padding-bottom:10px;"></div>
+      <!-- បញ្ជីមុខម្ហូបកុម្មង់ -->
+      <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--neon-orange); border-radius: 8px; padding: 10px; margin-bottom: 12px;">
+        <b style="color: var(--gold-yellow); font-size: 15px;">មុខម្ហូបក្នុងកន្ត្រក៖</b>
+        <div id="modal-cart-summary" style="margin-top: 6px;"></div>
+      </div>
 
-      <label><b>📍 ជ្រើសរើសសេវាដឹកជញ្ជូន៖</b></label>
-      <select id="modal-location" onchange="recalculateTotal()">
-        <option value="0">ក្នុងបុរីគៀងហ៊ត (Free ដឹក)</option>
-        <option value="4000">ក្រៅបុរី (ក្រោម 4km) - 4000៛</option>
-        <option value="8000">ទីតាំងឆ្ងាយលើសពី 4km - 8000៛ (17px)</option>
-      </select>
+      <div style="margin-bottom: 10px;">
+        <label><b>📍 ជ្រើសរើសសេវាដឹកជញ្ជូន៖</b></label>
+        <select id="modal-location" onchange="recalculateTotal()">
+          <option value="0">ក្នុងបុរីគៀងហ៊ត (Free ដឹក)</option>
+          <option value="4000">ក្រៅបុរី (ក្រោម 4km) - 4,000៛</option>
+          <option value="8000">ទីតាំងឆ្ងាយលើសពី 4km - 8,000៛</option>
+        </select>
+      </div>
 
-      <label><b>📞 លេខទូរស័ព្ទ៖</b></label>
-      <input type="text" id="modal-phone" placeholder="បញ្ចូលលេខទូរស័ព្ទ...">
+      <div style="margin-bottom: 10px;">
+        <label><b>📞 លេខទូរស័ព្ទ៖</b></label>
+        <input type="text" id="modal-phone" placeholder="បញ្ចូលលេខទូរស័ព្ទ...">
+      </div>
 
-      <label><b>📍 អាសយដ្ឋាន៖</b></label>
-      <input type="text" id="modal-address" placeholder="ផ្ទះលេខ, ផ្លូវ...">
+      <div style="margin-bottom: 10px;">
+        <label><b>📍 អាសយដ្ឋានដឹកជញ្ជូន៖</b></label>
+        <input type="text" id="modal-address" placeholder="ផ្ទះលេខ, ផ្លូវ, ទីតាំងចំណាំ...">
+      </div>
 
+      <!-- KHQR Pay Box (Black blend blood-red, Orange 25px) -->
       <div class="khqr-pay-box">
         <div style="color:#FFF; font-weight:bold; font-size:16px;">💳 ទូទាត់តាម KHQR (យោន ស៊ីនួន)</div>
         <div style="font-size:12px; color:#AAA;">Merchant ID: 14667615</div>
         <div class="khqr-price-display" id="modal-pay-amount">0 ៛</div>
         
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://share.gemini.google/II4XJIupFx23" style="width:160px; height:160px; border:2px solid var(--neon-orange); border-radius:8px;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://share.gemini.google/II4XJIupFx23" style="width:150px; height:150px; border:2px solid var(--neon-orange); border-radius:8px;">
         <br>
-        <a href="https://share.gemini.google/II4XJIupFx23" target="_blank" style="color:var(--gold-yellow); font-size:14px; display:inline-block; margin-top:8px; text-decoration:underline;">👉 ចុចទីនេះដើម្បីបើក Link វេរលុយ KHQR</a>
+        <a href="https://share.gemini.google/II4XJIupFx23" target="_blank" style="color:var(--gold-yellow); font-size:13px; display:inline-block; margin-top:8px; text-decoration:underline;">👉 ចុចទីនេះដើម្បីបើក Link វេរលុយ KHQR</a>
       </div>
 
+      <!-- Unpaid / Direct Pay Note Box -->
       <div style="background:#150000; padding:10px; border-radius:8px; border:1px solid var(--purple-pink); margin-bottom:10px;">
         <b style="color:var(--gold-yellow); font-size:14px;">📝 សម្រាប់មិនទាន់វេរ (Admin Note):</b>
         <input type="date" id="modal-date">
@@ -689,9 +729,9 @@
         return;
       }
       
-      let html = '<b style="color:var(--gold-yellow);">បញ្ជីមុខម្ហូបកុម្មង់៖</b><br>';
-      cart.forEach((item, index) => {
-        html += `<div class="modal-food-item">• ${item.name} - ${item.price.toLocaleString()}៛</div>`;
+      let html = '';
+      cart.forEach((item) => {
+        html += `<div class="modal-food-item"><span>• ${item.name}</span><b>${item.price.toLocaleString()}៛</b></div>`;
       });
       document.getElementById('modal-cart-summary').innerHTML = html;
 
