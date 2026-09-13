@@ -5,358 +5,270 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ផ្ទះអាហារ 36 - យោន ស៊ីនួន</title>
   
-  <!-- Google Fonts Import -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700;900&family=Kantumruy+Pro:wght@400;600;700&family=Moul&family=Nothworthy&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700;900&family=Moul&family=Mondulkiri&family=Battambang:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
   <style>
-    /* Font Definitions */
-    @font-face { font-family: 'Asvadek Hongkbach'; src: local('Kantumruy Pro'), local('Moul'); }
-    @font-face { font-family: 'Kh Phanith BoBle'; src: local('Moul'), local('Battambang'); }
-    @font-face { font-family: 'Asvadek Samurai'; src: local('Battambang'), local('Moul'); }
+    /* Font Face Mapping for requested custom fonts */
+    @font-face { font-family: 'Asvadek Hongkbach'; src: local('Kantumruy Pro Bold'), local('Moul'); }
+    @font-face { font-family: 'Sophanith BoBble'; src: local('Moul'), local('Kantumruy Pro'); }
+    @font-face { font-family: 'Asvadek Samurai'; src: local('Kantumruy Pro Bold'); }
     @font-face { font-family: 'KD Jayavarman I'; src: local('Kantumruy Pro'); }
-    @font-face { font-family: 'Khmer Bonteaystey'; src: local('Moul'); }
+    @font-face { font-family: 'NothworthyBold'; src: sans-serif; }
+    @font-face { font-family: 'Khmer bonteaystey'; src: local('Moul'), local('Kantumruy Pro'); }
 
     :root {
       --bg-dark: #120303;
-      --card-bg: #1E0A0A;
+      --card-bg: #4A0404; /* background ឈាមជ្រូក blend ក្រហម */
       --gold-yellow: #FFD700;
-      --light-yellow: #FFF59D;
+      --light-yellow: #FFFF7E;
       --neon-orange: #FF5722;
       --bright-red: #D90429;
-      --blood-red-blend: linear-gradient(135deg, #2D0000 0%, #800000 100%);
-      --text-light: #FFFFFF;
-      --purple-pink: #D81B60;
-      --purple-pink-gradient: linear-gradient(135deg, #8E24AA, #D81B60);
+      --magenta-purple: #8A2BE2; /* ស្វាយស៊ីជម្ពូ */
+      --text-light: #FFF;
+      --blend-dark: #1A0507; /* ខ្មៅ blend ឈាមជ្រូក */
     }
 
-    * { box-sizing: border-box; font-family: 'KD Jayavarman I', 'NothworthyBold', sans-serif; }
-    body { background-color: var(--bg-dark); margin: 0; padding-bottom: 90px; color: var(--text-light); }
+    * { box-sizing: border-box; font-family: 'KD Jayavarman I', 'Kantumruy Pro', sans-serif; }
+    body { background-color: var(--bg-dark); margin: 0; padding-bottom: 70px; color: var(--text-light); }
 
-    /* Hero Banner Header */
-    .hero-header {
-      background: var(--blood-red-blend);
-      padding: 15px;
+    /* Header Top Banner */
+    .top-header {
+      background: linear-gradient(180deg, #300000, var(--bg-dark));
       text-align: center;
-      border-bottom: 3px solid var(--gold-yellow);
+      padding: 15px 10px;
+      border-bottom: 2px solid var(--gold-yellow);
     }
-    .hero-title {
-      font-family: 'Asvadek Hongkbach', cursive, sans-serif;
+    .header-hero-title {
+      font-family: 'Asvadek Hongkbach', 'Moul', cursive;
       font-size: 30px;
       color: var(--gold-yellow);
-      margin: 0;
       text-shadow: 2px 2px 4px #000;
+      margin: 0;
     }
-    .hero-subtitle {
-      font-family: 'KD Jayavarman I', sans-serif;
+    .header-sub-title {
       font-size: 23px;
       color: #FFF;
       margin-top: 5px;
+      font-weight: bold;
     }
 
-    /* 16:9 Video Box */
+    /* Hero Video 16:9 Frame */
     .hero-video-container {
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #000;
       position: relative;
       overflow: hidden;
-      border-bottom: 2px solid var(--neon-orange);
+      border-bottom: 3px solid var(--gold-yellow);
+      box-shadow: 0 4px 15px rgba(217, 4, 41, 0.4);
     }
     .hero-video-container video, .hero-video-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 100%; height: 100%; object-fit: cover;
     }
     .video-overlay-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
+      position: absolute; top: 10px; left: 10px;
       background: rgba(217, 4, 41, 0.9);
-      color: #FFF;
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: bold;
-      border: 1px solid var(--gold-yellow);
+      color: #FFF; padding: 4px 10px; border-radius: 5px;
+      font-size: 13px; font-weight: bold; border: 1px solid var(--gold-yellow);
     }
 
     .container { padding: 12px; }
 
-    /* Menu Headings (22px) */
+    /* Section Header: 22px */
     .section-title {
-      font-family: 'Kh Phanith BoBle', 'Moul', cursive;
+      font-family: 'Sophanith BoBble', 'Moul', cursive;
       font-size: 22px;
       color: var(--gold-yellow);
-      margin: 20px 0 12px 0;
-      text-shadow: 1px 1px 3px #000;
-      border-left: 4px solid var(--bright-red);
-      padding-left: 8px;
+      text-shadow: 2px 2px 4px #000;
+      border-left: 5px solid var(--bright-red);
+      padding-left: 10px;
+      margin: 22px 0 14px 0;
     }
 
-    /* Grid for Food (Thumbnail 5:7) */
+    /* Menu Grid 2-Columns */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
     }
-
     .menu-card {
-      background: var(--blood-red-blend);
+      background: linear-gradient(145deg, #5A0505, #2B0202); /* ឈាមជ្រូក blend ក្រហម */
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #4A0000;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
+      border: 1px solid var(--gold-yellow);
+      display: flex; flex-direction: column; justify-content: space-between;
     }
 
-    /* Thumbnail ratio 5:7 */
+    /* Thumbnail 5:7 Aspect Ratio */
     .menu-thumb {
       width: 100%;
       aspect-ratio: 5 / 7;
       position: relative;
     }
-    .menu-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .menu-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* តម្លៃអាហារនៅលើប្រអប់: 20px */
+    .price-tag {
+      position: absolute; top: 6px; right: 6px;
+      background: rgba(0, 0, 0, 0.85);
+      color: var(--light-yellow);
+      font-weight: 900; font-size: 20px;
+      padding: 2px 8px; border-radius: 6px;
+      border: 1px solid var(--gold-yellow);
+      -webkit-text-stroke: 1px #000;
+      text-shadow: 1px 1px 2px #000;
     }
 
-    .menu-info { padding: 8px; text-align: center; }
+    .menu-info { padding: 8px; }
 
-    /* មុខម្ហូប Font Asvadek Samurai 17px ពណ៌លឿង stroke ខ្មៅ */
+    /* អក្សរមុខម្ហូប: 17px */
     .menu-name {
-      font-family: 'Asvadek Samurai', sans-serif;
-      font-size: 17px;
+      font-family: 'Asvadek Samurai', 'Kantumruy Pro', sans-serif;
+      font-size: 17px; font-weight: 700;
       color: var(--gold-yellow);
       -webkit-text-stroke: 0.7px #000;
-      text-shadow: 1px 1px 2px #000;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    /* តម្លៃអាហារ 20px លើប្រអប់កុម្ម៉ង់ ពណ៌លឿងខ្ចី stroke ខ្មៅ */
-    .price-text {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--light-yellow);
-      -webkit-text-stroke: 0.8px #000;
-      margin-bottom: 5px;
-      display: block;
+      margin-bottom: 8px; line-height: 1.3;
+      min-height: 44px;
     }
 
     .add-btn {
       width: 100%;
-      background: linear-gradient(180deg, var(--bright-red), #800000);
-      color: white;
-      border: 1px solid var(--gold-yellow);
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
+      background: linear-gradient(180deg, var(--bright-red), #900000);
+      color: white; border: 1px solid var(--gold-yellow);
+      padding: 8px; border-radius: 6px; font-weight: bold;
+      font-size: 15px; cursor: pointer;
     }
 
-    /* Addons & List styles */
-    .addon-grid { display: flex; flex-direction: column; gap: 8px; }
+    /* Banana Addon Grid */
+    .addon-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
     .addon-item {
-      background: var(--blood-red-blend);
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #4A0000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .addon-name {
-      font-family: 'Asvadek Samurai', sans-serif;
-      font-size: 17px;
-      color: var(--gold-yellow);
+      background: linear-gradient(145deg, #5A0505, #2B0202);
+      padding: 10px; border-radius: 8px;
+      border: 1px solid var(--gold-yellow);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 17px; color: var(--gold-yellow);
       -webkit-text-stroke: 0.5px #000;
     }
 
-    /* Info Note (17px) */
     .info-note {
       font-size: 17px;
       color: var(--gold-yellow);
-      background: #2D0000;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
-      border: 1px solid var(--neon-orange);
+      background: #2A0C0C; padding: 10px 12px;
+      border-radius: 6px; margin-top: 8px;
+      border-left: 4px solid var(--neon-orange);
     }
 
-    /* Check-in Box */
+    /* Urgency Box Highlight Purple-Pink */
+    .urgency-box {
+      font-size: 23px; font-weight: bold;
+      color: #FFF; background: var(--magenta-purple);
+      border: 2px solid var(--gold-yellow);
+      padding: 12px; border-radius: 10px;
+      text-align: center; margin-top: 15px;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+    }
+
+    .highlight-btn {
+      background: var(--magenta-purple) !important;
+      color: #FFF !important;
+      border: 1px solid var(--gold-yellow) !important;
+      font-size: 18px !important;
+      box-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+    }
+
+    /* Check-in Section */
     .checkin-box {
-      background: var(--purple-pink-gradient);
-      border: 1px solid #FF80AB;
-      text-align: center;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      background: linear-gradient(135deg, #2A0C0C, #1A0507);
+      border: 1px solid var(--gold-yellow);
+      text-align: center; padding: 12px;
+      border-radius: 10px; margin-bottom: 15px;
     }
 
-    /* Urgency & Telegram Channel Highlight Box (ស្វាយស៊ីជម្ពូ, 23px) */
-    .highlight-purple-pink {
-      background: var(--purple-pink-gradient);
-      font-size: 23px;
-      font-weight: bold;
-      color: #FFF;
-      padding: 12px;
-      border-radius: 10px;
-      text-align: center;
-      margin-top: 15px;
-      box-shadow: 0 4px 10px rgba(216, 27, 96, 0.4);
-    }
-    .highlight-purple-pink a {
-      color: #FFF; text-decoration: none; display: block; margin: 4px 0;
-    }
-
-    /* Footer Gif section */
-    .footer-section {
-      text-align: center;
-      margin-top: 25px;
-      background: var(--purple-pink-gradient);
-      padding: 15px;
-      border-radius: 12px;
-    }
-    .footer-text {
-      font-family: 'Khmer Bonteaystey', cursive, sans-serif;
-      font-size: 30px;
-      color: #FFFFFF;
-      text-shadow: 2px 2px 4px #000000;
-      margin-top: 10px;
-      line-height: 1.4;
-    }
-
-    /* Sticky Bottom Bar (23px Yellow) */
+    /* Sticky Bottom Order Bar */
     .sticky-cart-bar {
-      position: fixed;
-      bottom: 0; left: 0; width: 100%;
-      background: #000;
-      border-top: 2px solid var(--gold-yellow);
-      padding: 10px 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 99;
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background: #000; border-top: 2px solid var(--gold-yellow);
+      padding: 10px 15px; display: flex;
+      justify-content: space-between; align-items: center; z-index: 99;
     }
     .grand-total-text {
-      font-size: 23px;
-      font-weight: bold;
+      font-size: 23px; font-weight: bold;
       color: var(--gold-yellow);
-      -webkit-text-stroke: 0.5px #000;
-    }
-    .order-btn {
-      background: linear-gradient(180deg, var(--neon-orange), var(--bright-red));
-      color: #FFF;
-      font-weight: bold;
-      font-size: 17px;
-      padding: 10px 18px;
-      border: 1px solid var(--gold-yellow);
-      border-radius: 8px;
-      cursor: pointer;
+      -webkit-text-stroke: 1px #000;
     }
 
-    /* Pop-up Window (Box បញ្ជាក់ទំនិញ / Sophanith BoBble 22px Header) */
+    /* Modal Pop-up */
     .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(5px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
+      display: none; position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.85);
+      z-index: 1000; justify-content: center; align-items: center; padding: 10px;
     }
     .modal-content {
-      background: linear-gradient(145deg, #120303 0%, #1E0A0A 100%);
-      border: 2px solid var(--purple-pink);
-      box-shadow: 0 0 25px rgba(216, 27, 96, 0.3);
-      border-radius: 12px;
-      width: 100%;
-      max-width: 440px;
-      max-height: 92vh;
-      overflow-y: auto;
-      padding: 16px;
-      color: #FFF;
+      background: var(--blend-dark);
+      border: 3px solid var(--neon-orange);
+      border-radius: 14px; width: 100%; max-width: 480px;
+      height: 92vh; overflow-y: auto; padding: 16px; color: #FFF;
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.5);
     }
     .modal-header {
-      font-family: 'Kh Phanith BoBle', 'Moul', cursive;
-      font-size: 22px;
-      color: var(--gold-yellow);
-      text-align: center;
-      border-bottom: 1px solid var(--purple-pink);
+      font-family: 'Sophanith BoBble', 'Moul', cursive;
+      font-size: 22px; font-weight: bold;
+      color: var(--gold-yellow); margin-bottom: 12px;
+      text-align: center; border-bottom: 2px solid var(--neon-orange);
       padding-bottom: 8px;
-      margin-bottom: 12px;
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
+
     .modal-food-item {
       font-family: 'KD Jayavarman I', sans-serif;
-      font-size: 16px;
-      color: var(--light-yellow);
-      display: flex;
-      justify-content: space-between;
-      padding: 4px 0;
+      font-size: 17px;
     }
 
-    /* KHQR Pay Box (Black blend blood-red, Orange 25px) */
     .khqr-pay-box {
-      background: linear-gradient(180deg, #000000 0%, #1A0305 100%);
+      background: var(--blend-dark);
       border: 2px solid var(--neon-orange);
-      box-shadow: 0 0 15px rgba(255, 87, 34, 0.2);
-      border-radius: 10px;
-      padding: 12px;
-      text-align: center;
-      margin: 12px 0;
+      border-radius: 10px; padding: 12px;
+      text-align: center; margin: 12px 0;
     }
     .khqr-price-display {
-      font-size: 25px;
-      font-weight: 900;
-      color: #FF7043;
-      text-shadow: 0 0 10px rgba(255, 112, 67, 0.5);
-      margin: 6px 0;
+      font-size: 25px; font-weight: 900;
+      color: var(--neon-orange); margin: 8px 0;
+      background: #000; padding: 6px; border-radius: 6px;
     }
 
-    input[type="text"], input[type="date"], select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 4px;
-      margin-bottom: 10px;
-      background: #000;
-      color: #FFF;
-      border: 1px solid var(--purple-pink);
-      border-radius: 6px;
-      font-size: 15px;
-      outline: none;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--gold-yellow);
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    .total-summary-label {
+      font-size: 23px; font-weight: bold; color: var(--gold-yellow);
+      -webkit-text-stroke: 1px #000; text-align: center; margin: 10px 0;
     }
 
-    .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-    .btn-close { background: #333; color: white; border: 1px solid #555; padding: 10px; width: 40%; border-radius: 6px; font-size: 16px; cursor: pointer; }
-    .btn-confirm { background: linear-gradient(180deg, var(--neon-orange), var(--bright-red)); color: white; border: 1px solid var(--gold-yellow); padding: 10px; width: 60%; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; }
+    select, input[type="text"], input[type="date"], textarea {
+      width: 100%; padding: 10px; margin-top: 4px; margin-bottom: 10px;
+      background: #000; color: #FFF; border: 1px solid var(--bright-red);
+      border-radius: 6px; font-size: 16px;
+    }
+
+    .footer-gif-box {
+      background: var(--magenta-purple);
+      border: 2px solid var(--gold-yellow);
+      padding: 15px; border-radius: 12px;
+      text-align: center; margin-top: 25px;
+    }
+    .footer-thanks-text {
+      font-family: 'Khmer bonteaystey', 'Moul', cursive;
+      font-size: 30px; color: #FFF;
+      text-shadow: 2px 2px 5px #000; margin-top: 10px; line-height: 1.4;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hero Header -->
-  <div class="hero-header">
-    <h1 class="hero-title">ផ្ឋះអាហារ 36🍜</h1>
-    <div class="hero-subtitle">បុរីគៀងហ៊ត 50mលក់បាយ គុយទាវ មីឆា</div>
+  <div class="top-header">
+    <h1 class="header-hero-title">ផ្ទះអាហារ 36🍜</h1>
+    <div class="header-sub-title">បុរីគៀងហ៊ត 50m លក់បាយ គុយទាវ មីឆា</div>
   </div>
 
-  <!-- Hero Video 16:9 Container -->
   <div class="hero-video-container">
-    <div class="video-overlay-badge">🔥 Mukbang Combo Set Surprised Special</div>
+    <div class="video-overlay-badge">🔥 Combo Set Surprised & Mukbang Special</div>
     <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800">
       <source src="https://assets.mixkit.co/videos/preview/mixkit-delicious-fried-rice-with-vegetables-41484-large.mp4" type="video/mp4">
     </video>
@@ -364,23 +276,21 @@
 
   <div class="container">
 
-    <!-- Daily Check-in -->
     <div class="checkin-box">
-      <b style="color:#FFF; font-size: 17px;">🎁 Check in រាល់ថ្ងៃ ប្តូររង្វាន់!</b>
-      <p style="font-size: 14px; margin: 4px 0 8px 0;">Check-in រៀងរាល់ថ្ងៃដើម្បីទទួលបាន Snack ជាច្រើនដោយឥតគិតថ្លៃ</p>
-      <button onclick="doCheckIn()" style="background:var(--gold-yellow); color:#000; border:none; padding:6px 15px; border-radius:15px; font-weight:bold; cursor:pointer;">Check-in ថ្ងៃនេះ</button>
+      <b style="color:var(--gold-yellow); font-size: 18px;">🎁 Daily Check-in ប្តូររង្វាន់!</b>
+      <p style="font-size: 15px; margin: 4px 0 8px 0;">Check-in រៀងរាល់ថ្ងៃដើម្បីទទួលបាន Snack ឆ្ងាញ់ៗជាច្រើន!</p>
+      <button onclick="doCheckIn()" style="background:var(--neon-orange); color:#fff; border:none; padding:8px 18px; border-radius:15px; font-weight:bold; cursor:pointer;">Check-in ថ្ងៃនេះ</button>
     </div>
 
-    <!-- MENU 1: បាយព្រឹក -->
     <div class="section-title">👩‍🍳🍛 Menu បាយព្រឹក</div>
     <div class="menu-grid">
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400" alt="បាយសាច់ជ្រូក">
+          <span class="price-tag">5000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">បាយសាច់ជ្រូក ពងទាចៀន ឆ្អិន</div>
-          <span class="price-text">5000៛</span>
           <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូក ពងទាចៀន ឆ្អិន', 5000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -388,10 +298,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1510693206972-df098062cb71?w=400" alt="បាយសាច់ជ្រូក">
+          <span class="price-tag">5000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">បាយសាច់ជ្រូក ពងទាចៀនជាប់ព្នៅ</div>
-          <span class="price-text">5000៛</span>
           <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូក ពងទាចៀនជាប់ព្នៅ', 5000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -399,10 +309,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=400" alt="បាយសាច់ជ្រូក">
+          <span class="price-tag">5000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">បាយសាច់ជ្រូក ពងទា ខ</div>
-          <span class="price-text">5000៛</span>
           <button class="add-btn" onclick="addToCart('បាយសាច់ជ្រូក ពងទា ខ', 5000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -410,10 +320,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=400" alt="បាយសាច់មាន់">
+          <span class="price-tag">5000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">បាយសាច់មាន់ ពងទាខ</div>
-          <span class="price-text">5000៛</span>
           <button class="add-btn" onclick="addToCart('បាយសាច់មាន់ ពងទាខ', 5000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -421,10 +331,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?w=400" alt="បាយសាច់មាន់">
+          <span class="price-tag">5000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">បាយសាច់មាន់ ពងទាចៀន</div>
-          <span class="price-text">5000៛</span>
           <button class="add-btn" onclick="addToCart('បាយសាច់មាន់ ពងទាចៀន', 5000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -432,25 +342,24 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1536304993881-ff6e90fac0a6?w=400" alt="បាយស">
+          <span class="price-tag">1000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">បាយស 1ប្រអប់</div>
-          <span class="price-text">1000៛</span>
           <button class="add-btn" onclick="addToCart('បាយស 1ប្រអប់', 1000)">+ កុម្មង់</button>
         </div>
       </div>
     </div>
 
-    <!-- MENU 2: ស៊ុបមី -->
     <div class="section-title">👩‍🍳🍜 Menu ស៊ុបមី  លឿងសសៃធំ</div>
     <div class="menu-grid">
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400" alt="មី">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មី ប្រហិតសាច់គោ</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មី ប្រហិតសាច់គោ', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -458,10 +367,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1591814468924-caf88d1232e1?w=400" alt="មី">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មី ប្រហិត សាច់ជ្រូក</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មី ប្រហិត សាច់ជ្រូក', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -469,10 +378,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1612927601601-6638404737ce?w=400" alt="មី">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មី ប្រហិតសាច់ជ្រូកចិញ្ច្រាំ</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មី ប្រហិតសាច់ជ្រូកចិញ្ច្រាំ', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -480,10 +389,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?w=400" alt="មី">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មី សាច់ជ្រូកចិញ្ច្រាំ</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មី សាច់ជ្រូកចិញ្ច្រាំ', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -491,10 +400,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400" alt="មី">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មី គ្រឿងក្នុងជ្រូក</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មី គ្រឿងក្នុងជ្រូក', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -502,25 +411,24 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=400" alt="មី">
+          <span class="price-tag">10000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មី គ្រឿងក្នុងជ្រូកពិសេស</div>
-          <span class="price-text">10000៛</span>
           <button class="add-btn" onclick="addToCart('មី គ្រឿងក្នុងជ្រូកពិសេស', 10000)">+ កុម្មង់</button>
         </div>
       </div>
     </div>
 
-    <!-- MENU 3: មីឆា -->
     <div class="section-title">👩‍🍳🍛 Menu មីឆា មីដុំលឿង</div>
     <div class="menu-grid">
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400" alt="មីឆា">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មីឆា សាច់គោ ពងទា</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មីឆា សាច់គោ ពងទា', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -528,10 +436,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400" alt="មីឆា">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មីឆា សាច់គោ</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មីឆា សាច់គោ', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -539,10 +447,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400" alt="មីឆា">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មីឆា សាច់ជ្រូក</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មីឆា សាច់ជ្រូក', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -550,10 +458,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400" alt="មីឆា">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មីឆា សាច់ជ្រូក ពងទា</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មីឆា សាច់ជ្រូក ពងទា', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -561,10 +469,10 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=400" alt="មីឆា">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មីឆា ប្រហិត ពងទា</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មីឆា ប្រហិត ពងទា', 7000)">+ កុម្មង់</button>
         </div>
       </div>
@@ -572,133 +480,122 @@
       <div class="menu-card">
         <div class="menu-thumb">
           <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400" alt="មីឆា">
+          <span class="price-tag">7000៛</span>
         </div>
         <div class="menu-info">
           <div class="menu-name">មីឆា ប្រហោង សាច់គោ</div>
-          <span class="price-text">7000៛</span>
           <button class="add-btn" onclick="addToCart('មីឆា ប្រហោង សាច់គោ', 7000)">+ កុម្មង់</button>
         </div>
       </div>
     </div>
 
-    <!-- MENU 4: ដំណាប់ចេក -->
     <div class="section-title">🍌🍌 MENU ចេកស្អិតដំណាប់ចេកណាំវ៉ាខ្មែរ 5មុខ 🍌🍌</div>
     <div class="addon-grid">
       <div class="addon-item">
-        <span class="addon-name">រសជាតិដើម 200g</span>
-        <span><b class="price-text" style="display:inline; margin-right:5px;">10000៛</b> <button class="add-btn" style="width:auto; padding:3px 10px;" onclick="addBanana('រសជាតិដើម 200g', 10000)">+ កុម្មង់</button></span>
+        <span>រសជាតិដើម 200g</span>
+        <span><b>10000៛</b> <button class="add-btn" style="width:auto; padding:4px 12px;" onclick="addBanana('រសជាតិដើម 200g', 10000)">+ ថែម</button></span>
       </div>
       <div class="addon-item">
-        <span class="addon-name">រោយល្ងរសខ្មៅ 200g</span>
-        <span><b class="price-text" style="display:inline; margin-right:5px;">10000៛</b> <button class="add-btn" style="width:auto; padding:3px 10px;" onclick="addBanana('រោយល្ងរសខ្មៅ 200g', 10000)">+ កុម្មង់</button></span>
+        <span>រោយល្ងរសខ្មៅ 200g</span>
+        <span><b>10000៛</b> <button class="add-btn" style="width:auto; padding:4px 12px;" onclick="addBanana('រោយល្ងរសខ្មៅ 200g', 10000)">+ ថែម</button></span>
       </div>
       <div class="addon-item">
-        <span class="addon-name">រោយធញ្ញជាតិគ្រប់មុខ 200g</span>
-        <span><b class="price-text" style="display:inline; margin-right:5px;">12000៛</b> <button class="add-btn" style="width:auto; padding:3px 10px;" onclick="addBanana('រោយធញ្ញជាតិគ្រប់មុខ 200g', 12000)">+ កុម្មង់</button></span>
+        <span>រោយធញ្ញជាតិគ្រប់មុខ 200g</span>
+        <span><b>12000៛</b> <button class="add-btn" style="width:auto; padding:4px 12px;" onclick="addBanana('រោយធញ្ញជាតិគ្រប់មុខ 200g', 12000)">+ ថែម</button></span>
       </div>
       <div class="addon-item">
-        <span class="addon-name">រោយអាល់ម៉ុន 200g</span>
-        <span><b class="price-text" style="display:inline; margin-right:5px;">12000៛</b> <button class="add-btn" style="width:auto; padding:3px 10px;" onclick="addBanana('រោយអាល់ម៉ុន 200g', 12000)">+ កុម្មង់</button></span>
+        <span>រោយអាល់ម៉ុន 200g</span>
+        <span><b>12000៛</b> <button class="add-btn" style="width:auto; padding:4px 12px;" onclick="addBanana('រោយអាល់ម៉ុន 200g', 12000)">+ ថែម</button></span>
       </div>
       <div class="addon-item">
-        <span class="addon-name">រោយដូង 200g</span>
-        <span><b class="price-text" style="display:inline; margin-right:5px;">12000៛</b> <button class="add-btn" style="width:auto; padding:3px 10px;" onclick="addBanana('រោយដូង 200g', 12000)">+ កុម្មង់</button></span>
+        <span>រោយដូង 200g</span>
+        <span><b>12000៛</b> <button class="add-btn" style="width:auto; padding:4px 12px;" onclick="addBanana('រោយដូង 200g', 12000)">+ ថែម</button></span>
       </div>
     </div>
 
-    <!-- Notes (17px) -->
     <div class="info-note">- ទីតាំងឆ្ងាយលើសពី 4km សេវាដឹក 8000៛</div>
     <div class="info-note">- ទិញដំណាប់ចេកលើស 5 ប្រអប់ Free ដឹក</div>
 
-    <!-- Urgency Box (23px, ស្វាយស៊ីជម្ពូ) -->
-    <div class="highlight-purple-pink">
-      📞 ករណីបន្ទាន់ Telegram: 060 236 068
+    <div class="urgency-box">
+      📞 ករណីបន្ទាន់ ទំនាក់ទំនង៖ 060 236 068
     </div>
 
-    <!-- Group Links (ស្វាយស៊ីជម្ពូ) -->
-    <div class="highlight-purple-pink">
-      <a href="https://t.me/baysroupBoreykeanghort" target="_blank">👉 Join Channel ចូលរួមក្នុងGroup</a>
-      <a href="https://t.me/baysroupBoreykeanghort" target="_blank">👉 Upthat Menu អាហារ🍲🍜👨‍🍳</a>
+    <div style="display:flex; gap:10px; margin-top:15px;">
+      <a href="https://t.me/baysroupBoreykeanghort" target="_blank" class="highlight-btn" style="flex:1; text-align:center; text-decoration:none; padding:12px; border-radius:8px; font-weight:bold;">
+        Join Channel 📢
+      </a>
+      <a href="https://t.me/baysroupBoreykeanghort" target="_blank" class="highlight-btn" style="flex:1; text-align:center; text-decoration:none; padding:12px; border-radius:8px; font-weight:bold;">
+        Upthat Menu អាហារ 🍲🍜👨‍🍳
+      </a>
     </div>
 
-    <!-- Footer GIF with Khmer bonteaystey 30px -->
-    <div class="footer-section">
-      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y5a2pxY2s0OHQyOGJ3cXpxYzJnYXRtM3FvY24zaXlnMnk5NXV2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR85PnGiHGlHO8w/giphy.gif" alt="Thank You" style="width:130px; border-radius:50%;">
-      <div class="footer-text">
-        អរគុណអតិថិជនដែលតែងតែគាំទ្រ<br>សូមសំណាងល្អ លុយកាក់ហូរចូលដូចទឹក 💸✨
+    <div class="footer-gif-box">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y5a2pxY2s0OHQyOGJ3cXpxYzJnYXRtM3FvY24zaXlnMnk5NXV2ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vR85PnGiHGlHO8w/giphy.gif" alt="Thank You" style="width:130px; border-radius:50%; border:2px solid #FFF;">
+      <div class="footer-thanks-text">
+        អរគុណអតិថិជនដែលតែងតែគាំទ្រ!<br>សូមសំណាងល្អ លុយកាក់ហូរចូលដូចទឹក 💸✨
       </div>
     </div>
 
   </div>
 
-  <!-- Bottom Order Bar (23px Total) -->
   <div class="sticky-cart-bar">
     <div>
       <span style="font-size:14px; color:#AAA;">សរុបលុយរួម:</span><br>
       <span class="grand-total-text" id="bar-total">0 ៛</span>
     </div>
-    <button class="order-btn" onclick="openCheckoutModal()">បញ្ជាក់ការកុម្ម៉ង់ 🛒</button>
+    <button class="add-btn" style="width:auto; font-size:17px; padding:8px 20px;" onclick="openCheckoutModal()">ផ្ទៀងផ្ទាត់ការកុម្មង់ 🛒</button>
   </div>
 
-  <!-- Checkout Pop-up Modal (Box បញ្ជាក់ទំនិញ) -->
   <div class="modal-overlay" id="checkoutModal">
     <div class="modal-content">
-      <!-- 22px Header -->
-      <div class="modal-header">🛒 បញ្ជាក់ការកុម្ម៉ង់ទំនិញ</div>
+      <div class="modal-header">បញ្ជាក់ការកុម្មង់អាហារ</div>
       
-      <!-- បញ្ជីមុខម្ហូបកុម្មង់ -->
-      <div style="background: rgba(0,0,0,0.5); border: 1px solid var(--neon-orange); border-radius: 8px; padding: 10px; margin-bottom: 12px;">
-        <b style="color: var(--gold-yellow); font-size: 15px;">មុខម្ហូបក្នុងកន្ត្រក៖</b>
-        <div id="modal-cart-summary" style="margin-top: 6px;"></div>
-      </div>
+      <div id="modal-cart-summary" style="margin-bottom:12px; border-bottom:1px dashed #555; padding-bottom:10px;"></div>
 
-      <div style="margin-bottom: 10px;">
-        <label><b>📍 ជ្រើសរើសសេវាដឹកជញ្ជូន៖</b></label>
-        <select id="modal-location" onchange="recalculateTotal()">
-          <option value="0">ក្នុងបុរីគៀងហ៊ត (Free ដឹក)</option>
-          <option value="4000">ក្រៅបុរី (ក្រោម 4km) - 4,000៛</option>
-          <option value="8000">ទីតាំងឆ្ងាយលើសពី 4km - 8,000៛</option>
-        </select>
-      </div>
+      <label><b>📍 ជ្រើសរើសសេវាដឹកជញ្ជូន៖</b></label>
+      <select id="modal-location" onchange="recalculateTotal()">
+        <option value="0">ក្នុងបុរីគៀងហ៊ត (Free ដឹក)</option>
+        <option value="4000">ក្រៅបុរី (ក្រោម 4km) - 4000៛</option>
+        <option value="8000">ទីតាំងឆ្ងាយលើសពី 4km - 8000៛</option>
+      </select>
 
-      <div style="margin-bottom: 10px;">
-        <label><b>📞 លេខទូរស័ព្ទ៖</b></label>
-        <input type="text" id="modal-phone" placeholder="បញ្ចូលលេខទូរស័ព្ទ...">
-      </div>
+      <label><b>📞 លេខទូរស័ព្ទ៖</b></label>
+      <input type="text" id="modal-phone" placeholder="បញ្ចូលលេខទូរស័ព្ទ...">
 
-      <div style="margin-bottom: 10px;">
-        <label><b>📍 អាសយដ្ឋានដឹកជញ្ជូន៖</b></label>
-        <input type="text" id="modal-address" placeholder="ផ្ទះលេខ, ផ្លូវ, ទីតាំងចំណាំ...">
-      </div>
+      <label><b>📍 អាសយដ្ឋានលម្អិត៖</b></label>
+      <input type="text" id="modal-address" placeholder="ផ្ទះលេខ, ផ្លូវ...">
 
-      <!-- KHQR Pay Box (Black blend blood-red, Orange 25px) -->
       <div class="khqr-pay-box">
         <div style="color:#FFF; font-weight:bold; font-size:16px;">💳 ទូទាត់តាម KHQR (យោន ស៊ីនួន)</div>
         <div style="font-size:12px; color:#AAA;">Merchant ID: 14667615</div>
         <div class="khqr-price-display" id="modal-pay-amount">0 ៛</div>
         
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://share.gemini.google/II4XJIupFx23" style="width:150px; height:150px; border:2px solid var(--neon-orange); border-radius:8px;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://share.gemini.google/II4XJIupFx23" style="width:170px; height:170px; border:2px solid var(--neon-orange); border-radius:8px;">
         <br>
-        <a href="https://share.gemini.google/II4XJIupFx23" target="_blank" style="color:var(--gold-yellow); font-size:13px; display:inline-block; margin-top:8px; text-decoration:underline;">👉 ចុចទីនេះដើម្បីបើក Link វេរលុយ KHQR</a>
+        <a href="https://share.gemini.google/II4XJIupFx23" target="_blank" style="color:var(--gold-yellow); font-size:14px; display:inline-block; margin-top:8px; font-weight:bold;">👉 ចុចទីនេះដើម្បីបើក Link វេរលុយ KHQR</a>
       </div>
 
-      <!-- Unpaid / Direct Pay Note Box -->
-      <div style="background:#150000; padding:10px; border-radius:8px; border:1px solid var(--purple-pink); margin-bottom:10px;">
-        <b style="color:var(--gold-yellow); font-size:14px;">📝 សម្រាប់មិនទាន់វេរ (Admin Note):</b>
-        <input type="date" id="modal-date">
-        <textarea id="modal-admin-note" rows="2" placeholder="បំពេញឈ្មោះ ថ្ងៃកុម្មង់ និងទឹកលុយមិនទាន់ទូទាត់ (សម្រាប់ Pay លុយផ្ទាល់)..."></textarea>
+      <div class="total-summary-label" id="modal-grand-total-label">
+        សរុបលុយរួម ៖ 0 ៛
       </div>
 
-      <div class="btn-group">
-        <button class="btn-close" onclick="closeCheckoutModal()">ត្រឡប់ក្រោយ</button>
-        <button class="btn-confirm" onclick="finalSubmitOrder()">បញ្ជូនការកុម្មង់</button>
+      <div style="background:#110405; padding:12px; border-radius:8px; border:1px solid #5A1010; margin-bottom:12px;">
+        <b style="color:var(--gold-yellow); font-size:15px;">📝 សម្រាប់អ្នកមិនទាន់វេរ (Admin Note) ៖</b>
+        <input type="text" id="modal-unpaid-name" placeholder="ឈ្មោះអ្នកកុម្មង់..." style="margin-top:6px;">
+        <input type="date" id="modal-unpaid-date">
+        <textarea id="modal-unpaid-amount" placeholder="រៀបរាប់ចំនួនទឹកលុយដែលមិនទាន់ទូទាត់ ឬចំណាំបង់ផ្ទាល់..."></textarea>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:10px;">
+        <button onclick="closeCheckoutModal()" style="background:#555; color:white; border:none; padding:12px; width:50%; border-radius:6px; font-size:16px;">ត្រឡប់ក្រោយ</button>
+        <button onclick="finalSubmitOrder()" style="background:var(--neon-orange); color:white; border:none; padding:12px; width:50%; border-radius:6px; font-weight:bold; font-size:16px;">បញ្ជូនការកុម្មង់</button>
       </div>
     </div>
   </div>
 
   <script>
-    const tg = window.Telegram.WebApp;
-    if (tg) tg.expand();
+    const tg = window.Telegram ? window.Telegram.WebApp : null;
+    if(tg) tg.expand();
 
     const BOT_TOKEN = "8851377253:AAH-ABSDJ-PE4zL36e4i6xLB2Fb9rmkUaAQ";
     const CHAT_ID = "-1004387546731";
@@ -729,14 +626,14 @@
         return;
       }
       
-      let html = '';
-      cart.forEach((item) => {
-        html += `<div class="modal-food-item"><span>• ${item.name}</span><b>${item.price.toLocaleString()}៛</b></div>`;
+      let html = '<b style="color:var(--gold-yellow); font-size:18px;">បញ្ជីមុខម្ហូបកុម្មង់៖</b><br>';
+      cart.forEach((item, index) => {
+        html += `<div class="modal-food-item">• ${item.name} - <b>${item.price.toLocaleString()}៛</b></div>`;
       });
       document.getElementById('modal-cart-summary').innerHTML = html;
 
-      // Auto Free Delivery condition for Banana > 5 boxes
-      if (bananaCount > 5) {
+      // Auto Free delivery override if banana boxes >= 5
+      if (bananaCount >= 5) {
         document.getElementById('modal-location').value = "0";
       }
 
@@ -750,18 +647,22 @@
 
     function recalculateTotal() {
       let delivery = parseInt(document.getElementById('modal-location').value) || 0;
-      if (bananaCount > 5) delivery = 0; // Free delivery override
+      if (bananaCount >= 5) delivery = 0; // Free delivery condition
+      
       let grandTotal = foodTotal + delivery;
       document.getElementById('modal-pay-amount').innerText = grandTotal.toLocaleString() + ' ៛';
+      document.getElementById('modal-grand-total-label').innerText = 'សរុបលុយរួម ៖ ' + grandTotal.toLocaleString() + ' ៛';
     }
 
     function finalSubmitOrder() {
       const phone = document.getElementById('modal-phone').value;
       const address = document.getElementById('modal-address').value;
       const deliveryText = document.getElementById('modal-location').options[document.getElementById('modal-location').selectedIndex].text;
-      const deliveryFee = (bananaCount > 5) ? 0 : parseInt(document.getElementById('modal-location').value);
-      const adminNote = document.getElementById('modal-admin-note').value;
-      const orderDate = document.getElementById('modal-date').value;
+      const deliveryFee = (bananaCount >= 5) ? 0 : parseInt(document.getElementById('modal-location').value);
+      
+      const unpaidName = document.getElementById('modal-unpaid-name').value;
+      const unpaidDate = document.getElementById('modal-unpaid-date').value;
+      const unpaidNote = document.getElementById('modal-unpaid-amount').value;
 
       if (!phone || !address) {
         alert("សូមបំពេញលេខទូរស័ព្ទ និងអាសយដ្ឋាន!");
@@ -771,14 +672,17 @@
       const grandTotal = foodTotal + deliveryFee;
       let itemList = cart.map(c => `• ${c.name}: ${c.price.toLocaleString()}៛`).join('\n');
 
-      let message = `🛍 <b>ការកុម្មង់ថ្មី (យោន ស៊ីនួន)!</b>\n\n` +
+      let message = `🛍 <b>ការកុម្មង់ថ្មី (ផ្ទះអាហារ 36 - យោន ស៊ីនួន)!</b>\n\n` +
                     `📞 <b>លេខទូរស័ព្ទ:</b> ${phone}\n` +
                     `📍 <b>អាសយដ្ឋាន:</b> ${address} (${deliveryText})\n\n` +
                     `🍽 <b>មុខម្ហូប:</b>\n${itemList}\n\n` +
                     `💵 ថ្លៃម្ហូប: ${foodTotal.toLocaleString()}៛\n` +
                     `🛵 ថ្លៃដឹក: ${deliveryFee.toLocaleString()}៛\n` +
                     `💰 <b>សរុបរួម: ${grandTotal.toLocaleString()}៛</b>\n\n` +
-                    `📝 <b>AdminNote/មិនទាន់ទូទាត់:</b>\n${orderDate ? 'កាលបរិច្ឆេទ: ' + orderDate : ''}\n${adminNote || 'ទូទាត់រួច/គ្មានចំណាំ'}`;
+                    `📝 <b>AdminNote/អ្នកបង់ផ្ទាល់:</b>\n` +
+                    `• ឈ្មោះ: ${unpaidName || 'គ្មាន'}\n` +
+                    `• ថ្ងៃកុម្មង់: ${unpaidDate || 'ថ្ងៃនេះ'}\n` +
+                    `• ព័ត៌មានបន្ថែម: ${unpaidNote || 'គ្មាន'}`;
 
       fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: 'POST',
